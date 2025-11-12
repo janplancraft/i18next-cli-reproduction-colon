@@ -1,0 +1,16 @@
+{
+  "name": "i18next-cli-reproduction-colon",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "extract": "i18next-cli extract"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "i18next": "^25.6.2",
+    "i18next-cli": "1.23.7"
+  }
+}
