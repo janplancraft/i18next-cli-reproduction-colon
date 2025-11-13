@@ -1,4 +1,18 @@
 {
-  "AnotherKey": "default fallback",
-  "SomeKey": ""
+  "example": {
+    "componentEnd": "text<1>end</1>",
+    "componentStart": "<0>start</0>text",
+    "componentWithText": "text <1>link text</1> more text",
+    "inlineMiddle": "wo<1>r</1>d",
+    "inlineMiddleMultiline": "wo <1>r</1>d",
+    "multilineNoSpaces": "line one <1>link</1> line two",
+    "multilineWithSpaces": "line one <2>linkthatisveryverylong</2> longword that is very long",
+    "multipleComponents": "word<1>r</1>d<3>link</3> word",
+    "multipleInline": "first<1>middle</1>last",
+    "nested": "before <1> nested<0>inner</0></1> after",
+    "noSpaces": "word <1>link</1> word",
+    "singleLine": "prefix<1>suffix</1>",
+    "tightSpacing": "start<1>middle</1>end",
+    "withSpaces": "word <1>link</1> word"
+  }
 }

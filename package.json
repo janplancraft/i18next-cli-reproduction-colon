@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "extract": "i18next-cli extract"
+    "extract": "i18next-cli extract --sync-primary"
   },
   "keywords": [],
   "author": "",
@@ -11,6 +11,6 @@
   "description": "",
   "devDependencies": {
     "i18next": "^25.6.2",
-    "i18next-cli": "1.23.7"
+    "i18next-cli": "1.24.4"
   }
 }
