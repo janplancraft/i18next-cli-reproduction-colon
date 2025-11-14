@@ -13,7 +13,7 @@ i18next.init(
     const id = "example-id";
 
     // Expected: "wo<0>r</0>d"
-    // Actual: "wo<1>r</1>d" ✅
+    // Actual: "wo<1>r</1>d" ⚠️
     const component1 = (
       <Trans t={t} i18nKey="example.inlineMiddle">
         wo<b>r</b>d
@@ -21,7 +21,7 @@ i18next.init(
     );
 
     // Expected: "wo<0>r</0>d"
-    // Actual: "wo <1>r</1>d" ❌
+    // Actual: "wo<1>r</1>d" ⚠️
     const component2 = (
       <Trans t={t} i18nKey="example.inlineMiddleMultiline">
         wo
@@ -46,7 +46,7 @@ i18next.init(
     );
 
     // Expected: "word<0>link</0>word"
-    // Actual: "word <1>link</1> word" ❌
+    // Actual: "word<1>link</1>word" ⚠️
     const component5 = (
       <Trans t={t} i18nKey="example.noSpaces">
         word
@@ -72,7 +72,7 @@ i18next.init(
     );
 
     // Expected: "line one<0>link</0>line two"
-    // Actual: "line one <1>link</1> line two" ❌
+    // Actual: "line one<1>link</1>line two" ⚠️
     const component8 = (
       <Trans t={t} i18nKey="example.multilineNoSpaces">
         line one
@@ -94,7 +94,7 @@ i18next.init(
     );
 
     // Expected: "before<0>nested<1>inner</1></0>after"
-    // Actual: "before <1> nested<0>inner</0></1> after" ❌
+    // Actual: "before<1>nested<1>inner</1></1>after" ❌
     const component10 = (
       <Trans t={t} i18nKey="example.nested">
         before
@@ -123,7 +123,7 @@ i18next.init(
     );
 
     // Expected: "text<0>link text</0>more text"
-    // Actual: "text <1>link text</1> more text" ❌
+    // Actual: "text<1>link text</1>more text" ⚠️
     const component13 = (
       <Trans t={t} i18nKey="example.componentWithText">
         text
@@ -133,11 +133,109 @@ i18next.init(
     );
 
     // Expected: "word<0>r</0>d<1>link</1>word"
-    // Actual: "word<1>r</1>d<3>link</3> word" ❌
+    // Actual: "word<1>r</1>d<3>link</3>word" ⚠️
     const component14 = (
       <Trans t={t} i18nKey="example.multipleComponents">
         word<b>r</b>d<TextLink to="/path">link</TextLink>
         word
+      </Trans>
+    );
+
+    // Expected: "text<0>link</0>more"
+    // Actual: "text<1>link</1>more" ⚠️
+    const component15 = (
+      <Trans t={t} i18nKey="example.longPropsSingleLine">
+        text
+        <TextLink to="/very/long/path/that/spans/multiple/lines/and/keeps/going/and/going/and/going">
+          link
+        </TextLink>
+        more
+      </Trans>
+    );
+
+    // Expected: "text <0>link</0> more"
+    // Actual: "text <2>link</2> more" ⚠️
+    const component16 = (
+      <Trans t={t} i18nKey="example.longPropsWithSpaces">
+        text{" "}
+        <TextLink to="/very/long/path/that/spans/multiple/lines/and/keeps/going/and/going/and/going">
+          link
+        </TextLink>{" "}
+        more
+      </Trans>
+    );
+
+    // Expected: "before<0>middle</0>after"
+    // Actual: "before<1>middle</1>after" ⚠️
+    const component17 = (
+      <Trans t={t} i18nKey="example.longPropsInline">
+        before
+        <b
+          className="very-long-class-name-that-spans-across-multiple-lines-and-contains-many-words"
+          data-testid="another-very-long-attribute-value-that-goes-on-and-on"
+        >
+          middle
+        </b>
+        after
+      </Trans>
+    );
+
+    // Expected: "start<0>nested<1>inner</1></0>end"
+    // Actual: "start <1>nested<1>inner</1></1>end" ❌
+    const component18 = (
+      <Trans t={t} i18nKey="example.longPropsNested">
+        start
+        <b className="very-long-class-name-that-spans-across-multiple-lines-and-contains-many-words">
+          nested
+          <TextLink
+            to="/very/long/path/that/spans/multiple/lines/and/keeps/going/and/going/and/going"
+            className="another-very-long-class-name"
+          >
+            inner
+          </TextLink>
+        </b>
+        end
+      </Trans>
+    );
+
+    // Expected: "first<0>second</0>third<1>fourth</1>fifth"
+    // Actual: "first<1>second</1>third<3>fourth</3>fifth" ⚠️
+    const component19 = (
+      <Trans t={t} i18nKey="example.multipleLongProps">
+        first
+        <TextLink to="/very/long/path/that/spans/multiple/lines/and/keeps/going/and/going/and/going">
+          second
+        </TextLink>
+        third
+        <b
+          className="very-long-class-name-that-spans-across-multiple-lines-and-contains-many-words"
+          data-testid="another-very-long-attribute-value-that-goes-on-and-on"
+        >
+          fourth
+        </b>
+        fifth
+      </Trans>
+    );
+
+    // Expected: "text<0>icon</0>more"
+    const component20 = (
+      <Trans t={t} i18nKey="example.selfClosingLongProps">
+        text
+        <Custom
+          name="somethingverylongthatspansacrossmultiplelinesandkeepsgoingandgoingandgoing"
+          className="another-very-long-class-name-that-spans-across-multiple-lines"
+        />
+        more
+      </Trans>
+    );
+
+    // Expected: "In our <0>help article</0>, you will find the most important tips."
+    // Actual: "In our <2>help article</2> , you will find the most important tips." ❌
+    const component21 = (
+      <Trans t={t} i18nKey="example.spaceBeforePunctuation">
+        In our{" "}
+        <TextLink to="/help/article">help article</TextLink>
+        , you will find the most important tips.
       </Trans>
     );
   }
