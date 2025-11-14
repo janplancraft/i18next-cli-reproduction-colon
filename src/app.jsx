@@ -399,7 +399,7 @@ i18next.use(initReactI18next).init(
     );
 
     // Expected: "<0></0>days"
-    // Actual: "<0></0> days" ❌  // Has unwanted space before "days"
+    // Actual: "<0></0>days" ✅
     const component26 = (
       <Trans t={t} i18nKey="example.durationValue">
         <NumberInput
@@ -431,7 +431,7 @@ i18next.use(initReactI18next).init(
     );
 
     // Expected: "This <strong>can affect the absences already recorded by your employees</strong> to whom the model is assigned. Alternatively, you can create a new working time model and assign your employees to it."
-    // Actual: "This <strong> can affect the absences already recorded by your employees </strong> to whom the model is assigned. Alternatively, you can create a new working time model and assign your employees to it." ❌  // Has unwanted spaces around <strong> tag
+    // Actual: "This <strong>can affect the absences already recorded by your employees</strong> to whom the model is assigned. Alternatively, you can create a new working time model and assign your employees to it." ✅
     const component28 = (
       <Trans i18nKey="example.actionDescription">
         This{" "}

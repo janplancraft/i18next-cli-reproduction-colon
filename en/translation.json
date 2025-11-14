@@ -1,11 +1,11 @@
 {
   "example": {
-    "actionDescription": "This <strong> can affect the absences already recorded by your employees </strong> to whom the model is assigned. Alternatively, you can create a new working time model and assign your employees to it.",
+    "actionDescription": "This <strong>can affect the absences already recorded by your employees</strong> to whom the model is assigned. Alternatively, you can create a new working time model and assign your employees to it.",
     "actionWarning": "This <strong>can affect existing records</strong> associated with this item. Alternatively, you can create a new item and assign it to your records.",
     "componentEnd": "text<1>end</1>",
     "componentStart": "<0>start</0>text",
     "componentWithText": "text<1>link text</1>more text",
-    "durationValue": "<0></0> days",
+    "durationValue": "<0></0>days",
     "feedbackDescription": "<br />Your feedback will be incorporated into the further development of this application and will be discussed, evaluated, and prioritized by us in the next step. Due to the large amount of feedback we receive, we are unfortunately unable to respond to each piece of feedback individually.<br /><br /><4>If you have any questions or problems, please contact our <2>free support</2>.</4>",
     "inlineMiddle": "wo<1>r</1>d",
     "inlineMiddleMultiline": "wo<1>r</1>d",
