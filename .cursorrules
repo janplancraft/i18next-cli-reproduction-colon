@@ -46,3 +46,35 @@ When asked to update the "Actual" values in `src/app.jsx`:
 5. When calculating expected values, count ALL children sequentially (text nodes, spaces `{" "}`, and components) to determine component indices
 6. Ensure the format matches exactly what's in `translation.json` (including component indices, spacing, etc.)
 
+## Anonymization Rules for Examples
+
+When adding examples from production code, **always anonymize** to prevent leakage of company-specific information:
+
+1. **Translation Keys**: Replace company-specific keys with generic `example.*` keys (e.g., `TimeCorrectionsModal.form.vacation.duration.value` → `example.durationValue`)
+
+2. **Company Names**: Replace company/product names with generic placeholders (e.g., "plancraft" → "app", "company", or similar generic terms)
+
+3. **Component Names**: Replace company-specific component names with generic HTML elements or simple component names:
+   - Custom components → standard HTML (`<b>`, `<strong>`, `<a>`, etc.) or generic component names (`<Custom>`, `<TextLink>`, etc.)
+   - Example: `<ShrkMarker>` → `<b>` or `<Custom>`
+   - Example: `<Field>`, `<NumberInput>` → `<div>`, `<input>` or generic components
+
+4. **Text Content**: Replace company-specific text with generic equivalents while preserving:
+   - The structure that demonstrates the issue (spacing, nesting, etc.)
+   - The same number of text nodes and components
+   - The same spacing patterns (`{" "}`, line breaks, etc.)
+   - Example: "Welcome to plancraft, {firstName}!" → "Welcome to the app, {name}!"
+   - Example: "can affect the absences already recorded by your employees" → "can affect existing records"
+
+5. **Props and Attributes**: Keep generic props (like `className`, `name`, `value`) but remove or anonymize company-specific values:
+   - Keep: `className='w-[160px]'` (generic styling)
+   - Replace: `i18nKey='TimeCorrectionsModal.form.vacation.duration.value'` → `i18nKey='example.durationValue'`
+
+6. **Preserve Structure**: The anonymized example must still demonstrate the same spacing/numbering issue as the original. The structure (line breaks, component nesting, text nodes) should match exactly.
+
+7. **No Nesting**: Examples should never use nested components within Trans. All components should be direct children of Trans. If the original example has nesting, flatten it while preserving the spacing/numbering issue being demonstrated.
+
+8. **No Separate Namespaces**: Examples should always use the default namespace. Never use `ns` prop to put examples in separate namespaces. All examples should use `example.*` keys in the default translation namespace.
+
+**Goal**: The anonymized example should be indistinguishable from a generic test case while still reproducing the exact same i18next-cli extraction issue.
+

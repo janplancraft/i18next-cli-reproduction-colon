@@ -1,9 +1,11 @@
 {
   "example": {
+    "actionDescription": "This <strong> can affect the absences already recorded by your employees </strong> to whom the model is assigned. Alternatively, you can create a new working time model and assign your employees to it.",
     "actionWarning": "This <strong>can affect existing records</strong> associated with this item. Alternatively, you can create a new item and assign it to your records.",
     "componentEnd": "text<1>end</1>",
     "componentStart": "<0>start</0>text",
     "componentWithText": "text<1>link text</1>more text",
+    "durationValue": "<0></0> days",
     "feedbackDescription": "<br />Your feedback will be incorporated into the further development of this application and will be discussed, evaluated, and prioritized by us in the next step. Due to the large amount of feedback we receive, we are unfortunately unable to respond to each piece of feedback individually.<br /><br /><4>If you have any questions or problems, please contact our <2>free support</2>.</4>",
     "inlineMiddle": "wo<1>r</1>d",
     "inlineMiddleMultiline": "wo<1>r</1>d",
@@ -20,10 +22,12 @@
     "noSpaces": "word<1>link</1>word",
     "permissionInfo": "You can easily change the role, and thus the access rights, of your users. To do this, navigate to the <2>team settings</2>. There you can define a role for each user in their individual settings.",
     "permissionInfoNoSpace": "You can easily change the role, and thus the access rights, of your users. To do this, navigate to the<1>team settings</1>. There you can define a role for each user in their individual settings.",
+    "phoneConfirmation": "Your user can now log into the <1>app</1> using the mobile number <3>{{phoneNumber}}</3>.",
     "selfClosingLongProps": "text<1></1>more",
     "singleLine": "prefix<1>suffix</1>",
     "spaceBeforePunctuation": "In our <2>help article</2>, you will find the most important tips.",
     "tightSpacing": "start<1>middle</1>end",
+    "welcomeMessage": "Welcome to the app, <1>{{name}}</1>!",
     "withSpaces": "word <1>link</1> word"
   }
 }

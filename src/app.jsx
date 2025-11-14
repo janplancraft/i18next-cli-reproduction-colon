@@ -59,8 +59,47 @@ i18next.use(initReactI18next).init(
         </Component>
       );
     };
+    const Field = ({
+      name,
+      className,
+      error,
+      warning,
+      disabled,
+      children,
+    }) => (
+      <div
+        className={className}
+        data-name={name}
+        data-error={error}
+        data-warning={warning}
+        data-disabled={disabled}
+      >
+        {children}
+      </div>
+    );
+    const NumberInput = ({
+      className,
+      value,
+      locale,
+      format,
+      onChange,
+    }) => (
+      <input
+        type="number"
+        className={className}
+        value={value}
+        data-locale={locale}
+        data-format={JSON.stringify(format)}
+        onChange={(e) =>
+          onChange &&
+          onChange(parseFloat(e.target.value) || null)
+        }
+      />
+    );
 
     const id = "example-id";
+    const name = "John";
+    const phoneNumber = "1234567890";
 
     // Expected: "wo<1>r</1>d"
     // Actual: "wo<1>r</1>d" ✅
@@ -143,8 +182,8 @@ i18next.use(initReactI18next).init(
       </Trans>
     );
 
-    // Expected: "before<1>nested<2>inner</2></1>after"
-    // Actual: "before<1>nested<1>inner</1></1>after" ❌
+    // Expected: "before<1>nested<1>inner</1></1>after"
+    // Actual: "before<1>nested<1>inner</1></1>after" ✅
     const component10 = (
       <Trans t={t} i18nKey="example.nested">
         before
@@ -321,8 +360,8 @@ i18next.use(initReactI18next).init(
       </Trans>
     );
 
-    // Expected: "This <2>can affect existing records</2> associated with this item. Alternatively, you can create a new item and assign it to your records."
-    // Actual: "This <strong>can affect existing records</strong> associated with this item. Alternatively, you can create a new item and assign it to your records." ❌
+    // Expected: "This <strong>can affect existing records</strong> associated with this item. Alternatively, you can create a new item and assign it to your records."
+    // Actual: "This <strong>can affect existing records</strong> associated with this item. Alternatively, you can create a new item and assign it to your records." ✅
     const component23 = (
       <Trans t={t} i18nKey="example.actionWarning">
         This <strong>can affect existing records</strong>{" "}
@@ -359,6 +398,68 @@ i18next.use(initReactI18next).init(
       </Trans>
     );
 
+    // Expected: "<0></0>days"
+    // Actual: "<0></0> days" ❌  // Has unwanted space before "days"
+    const component26 = (
+      <Trans t={t} i18nKey="example.durationValue">
+        <NumberInput
+          className="text-right"
+          value={1.5}
+          locale="en"
+          format={{
+            minimumFractionDigits: 1,
+            maximumFractionDigits: 1,
+          }}
+          onChange={(value) => {
+            if (value === null) return;
+          }}
+        />
+        days
+      </Trans>
+    );
+
+    // Expected: "Welcome to the app, <1>{{name}}</1>!"
+    // Actual: "Welcome to the app, <1>{{name}}</1>!" ✅
+    const component27 = (
+      <Trans
+        i18nKey="example.welcomeMessage"
+        values={{ name: "John" }}
+        t={t}
+      >
+        Welcome to the app, <b>{name}</b>!
+      </Trans>
+    );
+
+    // Expected: "This <strong>can affect the absences already recorded by your employees</strong> to whom the model is assigned. Alternatively, you can create a new working time model and assign your employees to it."
+    // Actual: "This <strong> can affect the absences already recorded by your employees </strong> to whom the model is assigned. Alternatively, you can create a new working time model and assign your employees to it." ❌  // Has unwanted spaces around <strong> tag
+    const component28 = (
+      <Trans i18nKey="example.actionDescription">
+        This{" "}
+        <strong>
+          can affect the absences already recorded by your
+          employees
+        </strong>{" "}
+        to whom the model is assigned. Alternatively, you
+        can create a new working time model and assign your
+        employees to it.
+      </Trans>
+    );
+
+    // Expected: "Your user can now log into the <1>app</1> using the mobile number <3>{{phoneNumber}}</3>."
+    // Actual: "Your user can now log into the <1>app</1> using the mobile number <3>{{phoneNumber}}</3>." ✅
+    const component29 = (
+      <Trans
+        t={t}
+        i18nKey="example.phoneConfirmation"
+        values={{
+          phoneNumber: "1234567890",
+        }}
+      >
+        Your user can now log into the <b>app</b> using the
+        mobile number <b>{phoneNumber}</b>.
+      </Trans>
+    );
+
     // Render all components to trigger the missing key handler
     const components = [
       component1,
@@ -386,6 +487,10 @@ i18next.use(initReactI18next).init(
       component23,
       component24,
       component25,
+      component26,
+      component27,
+      component28,
+      component29,
     ];
 
     console.log(
