@@ -321,6 +321,44 @@ i18next.use(initReactI18next).init(
       </Trans>
     );
 
+    // Expected: "This <2>can affect existing records</2> associated with this item. Alternatively, you can create a new item and assign it to your records."
+    // Actual: "This <strong> can affect existing records </strong> associated with this item. Alternatively, you can create a new item and assign it to your records." ❌
+    const component23 = (
+      <Trans t={t} i18nKey="example.actionWarning">
+        This <strong>can affect existing records</strong>{" "}
+        associated with this item. Alternatively, you can
+        create a new item and assign it to your records.
+      </Trans>
+    );
+
+    // Expected: "You can easily change the role, and thus the access rights, of your users. To do this, navigate to the <2>team settings</2>. There you can define a role for each user in their individual settings."
+    // Actual: "You can easily change the role, and thus the access rights, of your users. To do this, navigate to the <2>team settings</2>. There you can define a role for each user in their individual settings." ✅
+    const component24 = (
+      <Trans t={t} i18nKey="example.permissionInfo">
+        You can easily change the role, and thus the access
+        rights, of your users. To do this, navigate to the{" "}
+        <TextLink target="_blank" to="/settings/team">
+          team settings
+        </TextLink>
+        . There you can define a role for each user in their
+        individual settings.
+      </Trans>
+    );
+
+    // Expected: "You can easily change the role, and thus the access rights, of your users. To do this, navigate to the<1>team settings</1>. There you can define a role for each user in their individual settings."
+    // Actual: "You can easily change the role, and thus the access rights, of your users. To do this, navigate to the <1>team settings</1>. There you can define a role for each user in their individual settings." ❌
+    const component25 = (
+      <Trans t={t} i18nKey="example.permissionInfoNoSpace">
+        You can easily change the role, and thus the access
+        rights, of your users. To do this, navigate to the
+        <TextLink target="_blank" to="/settings/team">
+          team settings
+        </TextLink>
+        . There you can define a role for each user in their
+        individual settings.
+      </Trans>
+    );
+
     // Render all components to trigger the missing key handler
     const components = [
       component1,
@@ -345,6 +383,9 @@ i18next.use(initReactI18next).init(
       component20,
       component21,
       component22,
+      component23,
+      component24,
+      component25,
     ];
 
     console.log(

@@ -1,5 +1,6 @@
 {
   "example": {
+    "actionWarning": "This <strong>can affect existing records</strong> associated with this item. Alternatively, you can create a new item and assign it to your records.",
     "componentEnd": "text<1>end</1>",
     "componentStart": "<0>start</0>text",
     "componentWithText": "text<1>link text</1>more text",
@@ -17,6 +18,8 @@
     "multipleLongProps": "first<1>second</1>third<3>fourth</3>fifth",
     "nested": "before<1>nested<1>inner</1></1>after",
     "noSpaces": "word<1>link</1>word",
+    "permissionInfo": "You can easily change the role, and thus the access rights, of your users. To do this, navigate to the <2>team settings</2>. There you can define a role for each user in their individual settings.",
+    "permissionInfoNoSpace": "You can easily change the role, and thus the access rights, of your users. To do this, navigate to the <1>team settings</1>. There you can define a role for each user in their individual settings.",
     "selfClosingLongProps": "text<1></1>more",
     "singleLine": "prefix<1>suffix</1>",
     "spaceBeforePunctuation": "In our <2>help article</2>, you will find the most important tips.",
