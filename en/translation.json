@@ -7,7 +7,7 @@
     "inlineMiddle": "wo<1>r</1>d",
     "inlineMiddleMultiline": "wo<1>r</1>d",
     "longPropsInline": "before<1>middle</1>after",
-    "longPropsNested": "start <1>nested<1>inner</1></1>end",
+    "longPropsNested": "start<1>nested<1>inner</1></1>end",
     "longPropsSingleLine": "text<1>link</1>more",
     "longPropsWithSpaces": "text <2>link</2> more",
     "multilineNoSpaces": "line one<1>link</1>line two",
@@ -19,7 +19,7 @@
     "noSpaces": "word<1>link</1>word",
     "selfClosingLongProps": "text<1></1>more",
     "singleLine": "prefix<1>suffix</1>",
-    "spaceBeforePunctuation": "In our <2>help article</2> , you will find the most important tips.",
+    "spaceBeforePunctuation": "In our <2>help article</2>, you will find the most important tips.",
     "tightSpacing": "start<1>middle</1>end",
     "withSpaces": "word <1>link</1> word"
   }

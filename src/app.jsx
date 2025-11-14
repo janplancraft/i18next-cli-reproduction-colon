@@ -87,7 +87,7 @@ i18next.use(initReactI18next).init(
       </Trans>
     );
 
-    // Expected: "text<0>end</0>"
+    // Expected: "text<1>end</1>"
     // Actual: "text<1>end</1>" ✅
     const component4 = (
       <Trans t={t} i18nKey="example.componentEnd">
@@ -105,7 +105,7 @@ i18next.use(initReactI18next).init(
       </Trans>
     );
 
-    // Expected: "word <0>link</0> word"
+    // Expected: "word <1>link</1> word"
     // Actual: "word <1>link</1> word" ✅
     const component6 = (
       <Trans t={t} i18nKey="example.withSpaces">
@@ -113,7 +113,7 @@ i18next.use(initReactI18next).init(
       </Trans>
     );
 
-    // Expected: "first<0>middle</0>last"
+    // Expected: "first<1>middle</1>last"
     // Actual: "first<1>middle</1>last" ✅
     const component7 = (
       <Trans t={t} i18nKey="example.multipleInline">
@@ -156,7 +156,7 @@ i18next.use(initReactI18next).init(
       </Trans>
     );
 
-    // Expected: "prefix<0>suffix</0>"
+    // Expected: "prefix<1>suffix</1>"
     // Actual: "prefix<1>suffix</1>" ✅
     const component11 = (
       <Trans t={t} i18nKey="example.singleLine">
@@ -164,7 +164,7 @@ i18next.use(initReactI18next).init(
       </Trans>
     );
 
-    // Expected: "start<0>middle</0>end"
+    // Expected: "start<1>middle</1>end"
     // Actual: "start<1>middle</1>end" ✅
     const component12 = (
       <Trans t={t} i18nKey="example.tightSpacing">
@@ -230,8 +230,8 @@ i18next.use(initReactI18next).init(
       </Trans>
     );
 
-    // Expected: "start<1>nested<2>inner</2></1>end"
-    // Actual: "start <1>nested<1>inner</1></1>end" ❌
+    // Expected: "start<1>nested<1>inner</1></1>end"
+    // Actual: "start<1>nested<1>inner</1></1>end" ✅
     const component18 = (
       <Trans t={t} i18nKey="example.longPropsNested">
         start
@@ -268,6 +268,7 @@ i18next.use(initReactI18next).init(
     );
 
     // Expected: "text<1></1>more"
+    // Actual: "text<1></1>more" ✅
     const component20 = (
       <Trans t={t} i18nKey="example.selfClosingLongProps">
         text
@@ -280,7 +281,7 @@ i18next.use(initReactI18next).init(
     );
 
     // Expected: "In our <2>help article</2>, you will find the most important tips."
-    // Actual: "In our <2>help article</2> , you will find the most important tips." ❌
+    // Actual: "In our <2>help article</2>, you will find the most important tips." ✅
     const component21 = (
       <Trans t={t} i18nKey="example.spaceBeforePunctuation">
         In our{" "}
