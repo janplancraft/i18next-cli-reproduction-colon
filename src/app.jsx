@@ -131,7 +131,7 @@ i18next.use(initReactI18next).init(
       </Trans>
     );
 
-    // Expected: "line one <0>linkthatisveryverylong</0> longword that is very long"
+    // Expected: "line one <2>linkthatisveryverylong</2> longword that is very long"
     // Actual: "line one <2>linkthatisveryverylong</2> longword that is very long" ✅
     const component9 = (
       <Trans t={t} i18nKey="example.multilineWithSpaces">
@@ -290,8 +290,8 @@ i18next.use(initReactI18next).init(
       </Trans>
     );
 
-    // Expected: "<br/>Your feedback will be incorporated into the further development of this application and will be discussed, evaluated, and prioritized by us in the next step. Due to the large amount of feedback we receive, we are unfortunately unable to respond to each piece of feedback individually.<br/><br/><4>If you have any questions or problems, please contact our <2>free support</2>.</4>"
-    // Actual: "<br />Your feedback will be incorporated into the further development of this application and will be discussed, evaluated, and prioritized by us in the next step. Due to the large amount of feedback we receive, we are unfortunately unable to respond to each piece of feedback individually.<br /><br /><4>If you have any questions or problems, please contact our <6>free support</6>.</4>" ⚠️
+    // Expected: "<br />Your feedback will be incorporated into the further development of this application and will be discussed, evaluated, and prioritized by us in the next step. Due to the large amount of feedback we receive, we are unfortunately unable to respond to each piece of feedback individually.<br /><br /><4>If you have any questions or problems, please contact our <2>free support</2>.</4>"
+    // Actual: "<br />Your feedback will be incorporated into the further development of this application and will be discussed, evaluated, and prioritized by us in the next step. Due to the large amount of feedback we receive, we are unfortunately unable to respond to each piece of feedback individually.<br /><br /><4>If you have any questions or problems, please contact our <2>free support</2>.</4>" ✅
     const component22 = (
       <Trans t={t} i18nKey="example.feedbackDescription">
         <br />
@@ -322,7 +322,7 @@ i18next.use(initReactI18next).init(
     );
 
     // Expected: "This <2>can affect existing records</2> associated with this item. Alternatively, you can create a new item and assign it to your records."
-    // Actual: "This <strong> can affect existing records </strong> associated with this item. Alternatively, you can create a new item and assign it to your records." ❌
+    // Actual: "This <strong>can affect existing records</strong> associated with this item. Alternatively, you can create a new item and assign it to your records." ❌
     const component23 = (
       <Trans t={t} i18nKey="example.actionWarning">
         This <strong>can affect existing records</strong>{" "}
@@ -346,7 +346,7 @@ i18next.use(initReactI18next).init(
     );
 
     // Expected: "You can easily change the role, and thus the access rights, of your users. To do this, navigate to the<1>team settings</1>. There you can define a role for each user in their individual settings."
-    // Actual: "You can easily change the role, and thus the access rights, of your users. To do this, navigate to the <1>team settings</1>. There you can define a role for each user in their individual settings." ❌
+    // Actual: "You can easily change the role, and thus the access rights, of your users. To do this, navigate to the<1>team settings</1>. There you can define a role for each user in their individual settings." ✅
     const component25 = (
       <Trans t={t} i18nKey="example.permissionInfoNoSpace">
         You can easily change the role, and thus the access
