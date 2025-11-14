@@ -8,7 +8,7 @@
 
 In `src/app.jsx`, each test case follows this pattern:
 
-- **Expected**: Shows what the `translation.json` value should ideally look like for that translation key
+- **Expected**: Shows what the `translation.json` value should look like based on react-i18next's component index calculation
 - **Actual**: Shows the actual value copied from `translation.json` with:
   - ✅ (checkmark) if the actual value matches the expected value exactly
   - ⚠️ (warning) if only the component tag numbers differ (e.g., `<0>` vs `<1>`) but the structure and spacing match
@@ -16,20 +16,21 @@ In `src/app.jsx`, each test case follows this pattern:
 
 Example:
 ```javascript
-// Expected: "wo<0>r</0>d"
-// Actual: "wo<1>r</1>d" ⚠️  // Only tag numbers differ
-// Expected: "word<0>link</0>word"
-// Actual: "word <1>link</1> word" ❌  // Has unwanted spaces
+// Expected: "wo<1>r</1>d"  // Component is 2nd child (index 1)
+// Actual: "wo<1>r</1>d" ✅  // Matches expected
+// Expected: "In our <2>help article</2>, you will find..."
+// Actual: "In our <2>help article</2> , you will find..." ❌  // Has unwanted space before comma
 ```
 
-This pattern helps track which translation keys are being generated correctly by i18next-cli and which ones have issues (like unwanted spaces, incorrect component indices, etc.).
+This pattern helps track which translation keys are being generated correctly by i18next-cli and which ones have issues (like unwanted spaces, incorrect nesting, etc.).
 
 ## Workflow
 
 1. Write test cases in `src/app.jsx` with Trans components
-2. Run `pnpm extract` to generate/update `translation.json`
+2. Run `npm run extract` to generate/update `translation.json`
 3. Compare the generated values with the expected values in the comments
 4. Never manually edit `translation.json` - it will be overwritten on the next extraction
+5. Run `npm run` to execute the components and see missing keys directly from i18next
 
 ## Updating Actual Values
 
@@ -40,7 +41,8 @@ When asked to update the "Actual" values in `src/app.jsx`:
 3. Update the "Actual" value with the current value from `translation.json`
 4. Update the checkmark/warning/X mark:
    - ✅ if the actual value matches the expected value exactly
-   - ⚠️ if only the component tag numbers differ (e.g., `<0>` vs `<1>`) but structure and spacing match
+   - ⚠️ if only the component tag numbers differ (e.g., `<0>` vs `<1>`) but structure and spacing match (Note: This should rarely happen now that expected values are calculated correctly)
    - ❌ if there are structural differences (unwanted spaces, incorrect nesting, missing text, etc.)
-5. Ensure the format matches exactly what's in `translation.json` (including component indices, spacing, etc.)
+5. When calculating expected values, count ALL children sequentially (text nodes, spaces `{" "}`, and components) to determine component indices
+6. Ensure the format matches exactly what's in `translation.json` (including component indices, spacing, etc.)
 

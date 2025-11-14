@@ -3,6 +3,7 @@
     "componentEnd": "text<1>end</1>",
     "componentStart": "<0>start</0>text",
     "componentWithText": "text<1>link text</1>more text",
+    "feedbackDescription": "<br />Your feedback will be incorporated into the further development of this application and will be discussed, evaluated, and prioritized by us in the next step. Due to the large amount of feedback we receive, we are unfortunately unable to respond to each piece of feedback individually.<br /><br /><4>If you have any questions or problems, please contact our <6>free support</6>.</4>",
     "inlineMiddle": "wo<1>r</1>d",
     "inlineMiddleMultiline": "wo<1>r</1>d",
     "longPropsInline": "before<1>middle</1>after",

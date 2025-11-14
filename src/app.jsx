@@ -1,27 +1,77 @@
 const i18next = require("i18next");
+const {
+  initReactI18next,
+  Trans,
+  I18nextProvider,
+} = require("react-i18next");
+const React = require("react");
+const ReactDOMServer = require("react-dom/server");
 
-i18next.init(
+// Store missing keys to access them directly
+const missingKeys = new Map();
+
+// Initialize i18next
+i18next.use(initReactI18next).init(
   {
     lng: "en",
+    saveMissing: true,
+    missingKeyHandler: (lng, ns, key, fallbackValue) => {
+      // Store the missing key with its value
+      missingKeys.set(key, fallbackValue);
+      // Log it (this is what you see in console)
+      console.log(
+        `i18next::translator: missingKey ${lng} ${ns} ${key} ${fallbackValue}`
+      );
+      return fallbackValue;
+    },
   },
   (err, t) => {
     if (err) return console.error(err);
 
-    const Trans = require("react-i18next").Trans;
-    const TextLink = require("react-i18next").TextLink;
+    console.log("\n=== Missing Keys Map ===");
+    missingKeys.forEach((value, key) => {
+      console.log(`${key}: ${value}`);
+    });
+
+    // Components used in Trans examples - using standard HTML elements
+    const TextLink = ({ to, children }) => (
+      <a href={to}>{children}</a>
+    );
+    const Custom = ({ name, className }) => (
+      <div className={className}>{name}</div>
+    );
+    const Text = ({
+      fontSize,
+      type,
+      as,
+      onClick,
+      children,
+      ...props
+    }) => {
+      const Component = as || "span";
+      return (
+        <Component
+          style={fontSize ? { fontSize } : undefined}
+          onClick={onClick}
+          {...props}
+        >
+          {children}
+        </Component>
+      );
+    };
 
     const id = "example-id";
 
-    // Expected: "wo<0>r</0>d"
-    // Actual: "wo<1>r</1>d" ⚠️
+    // Expected: "wo<1>r</1>d"
+    // Actual: "wo<1>r</1>d" ✅
     const component1 = (
       <Trans t={t} i18nKey="example.inlineMiddle">
         wo<b>r</b>d
       </Trans>
     );
 
-    // Expected: "wo<0>r</0>d"
-    // Actual: "wo<1>r</1>d" ⚠️
+    // Expected: "wo<1>r</1>d"
+    // Actual: "wo<1>r</1>d" ✅
     const component2 = (
       <Trans t={t} i18nKey="example.inlineMiddleMultiline">
         wo
@@ -45,8 +95,8 @@ i18next.init(
       </Trans>
     );
 
-    // Expected: "word<0>link</0>word"
-    // Actual: "word<1>link</1>word" ⚠️
+    // Expected: "word<1>link</1>word"
+    // Actual: "word<1>link</1>word" ✅
     const component5 = (
       <Trans t={t} i18nKey="example.noSpaces">
         word
@@ -71,8 +121,8 @@ i18next.init(
       </Trans>
     );
 
-    // Expected: "line one<0>link</0>line two"
-    // Actual: "line one<1>link</1>line two" ⚠️
+    // Expected: "line one<1>link</1>line two"
+    // Actual: "line one<1>link</1>line two" ✅
     const component8 = (
       <Trans t={t} i18nKey="example.multilineNoSpaces">
         line one
@@ -93,7 +143,7 @@ i18next.init(
       </Trans>
     );
 
-    // Expected: "before<0>nested<1>inner</1></0>after"
+    // Expected: "before<1>nested<2>inner</2></1>after"
     // Actual: "before<1>nested<1>inner</1></1>after" ❌
     const component10 = (
       <Trans t={t} i18nKey="example.nested">
@@ -122,8 +172,8 @@ i18next.init(
       </Trans>
     );
 
-    // Expected: "text<0>link text</0>more text"
-    // Actual: "text<1>link text</1>more text" ⚠️
+    // Expected: "text<1>link text</1>more text"
+    // Actual: "text<1>link text</1>more text" ✅
     const component13 = (
       <Trans t={t} i18nKey="example.componentWithText">
         text
@@ -132,8 +182,8 @@ i18next.init(
       </Trans>
     );
 
-    // Expected: "word<0>r</0>d<1>link</1>word"
-    // Actual: "word<1>r</1>d<3>link</3>word" ⚠️
+    // Expected: "word<1>r</1>d<3>link</3>word"
+    // Actual: "word<1>r</1>d<3>link</3>word" ✅
     const component14 = (
       <Trans t={t} i18nKey="example.multipleComponents">
         word<b>r</b>d<TextLink to="/path">link</TextLink>
@@ -141,8 +191,8 @@ i18next.init(
       </Trans>
     );
 
-    // Expected: "text<0>link</0>more"
-    // Actual: "text<1>link</1>more" ⚠️
+    // Expected: "text<1>link</1>more"
+    // Actual: "text<1>link</1>more" ✅
     const component15 = (
       <Trans t={t} i18nKey="example.longPropsSingleLine">
         text
@@ -153,8 +203,8 @@ i18next.init(
       </Trans>
     );
 
-    // Expected: "text <0>link</0> more"
-    // Actual: "text <2>link</2> more" ⚠️
+    // Expected: "text <2>link</2> more"
+    // Actual: "text <2>link</2> more" ✅
     const component16 = (
       <Trans t={t} i18nKey="example.longPropsWithSpaces">
         text{" "}
@@ -165,8 +215,8 @@ i18next.init(
       </Trans>
     );
 
-    // Expected: "before<0>middle</0>after"
-    // Actual: "before<1>middle</1>after" ⚠️
+    // Expected: "before<1>middle</1>after"
+    // Actual: "before<1>middle</1>after" ✅
     const component17 = (
       <Trans t={t} i18nKey="example.longPropsInline">
         before
@@ -180,7 +230,7 @@ i18next.init(
       </Trans>
     );
 
-    // Expected: "start<0>nested<1>inner</1></0>end"
+    // Expected: "start<1>nested<2>inner</2></1>end"
     // Actual: "start <1>nested<1>inner</1></1>end" ❌
     const component18 = (
       <Trans t={t} i18nKey="example.longPropsNested">
@@ -198,8 +248,8 @@ i18next.init(
       </Trans>
     );
 
-    // Expected: "first<0>second</0>third<1>fourth</1>fifth"
-    // Actual: "first<1>second</1>third<3>fourth</3>fifth" ⚠️
+    // Expected: "first<1>second</1>third<3>fourth</3>fifth"
+    // Actual: "first<1>second</1>third<3>fourth</3>fifth" ✅
     const component19 = (
       <Trans t={t} i18nKey="example.multipleLongProps">
         first
@@ -217,7 +267,7 @@ i18next.init(
       </Trans>
     );
 
-    // Expected: "text<0>icon</0>more"
+    // Expected: "text<1></1>more"
     const component20 = (
       <Trans t={t} i18nKey="example.selfClosingLongProps">
         text
@@ -229,7 +279,7 @@ i18next.init(
       </Trans>
     );
 
-    // Expected: "In our <0>help article</0>, you will find the most important tips."
+    // Expected: "In our <2>help article</2>, you will find the most important tips."
     // Actual: "In our <2>help article</2> , you will find the most important tips." ❌
     const component21 = (
       <Trans t={t} i18nKey="example.spaceBeforePunctuation">
@@ -238,5 +288,89 @@ i18next.init(
         , you will find the most important tips.
       </Trans>
     );
+
+    // Expected: "<br/>Your feedback will be incorporated into the further development of this application and will be discussed, evaluated, and prioritized by us in the next step. Due to the large amount of feedback we receive, we are unfortunately unable to respond to each piece of feedback individually.<br/><br/><4>If you have any questions or problems, please contact our <2>free support</2>.</4>"
+    // Actual: "<br />Your feedback will be incorporated into the further development of this application and will be discussed, evaluated, and prioritized by us in the next step. Due to the large amount of feedback we receive, we are unfortunately unable to respond to each piece of feedback individually.<br /><br /><4>If you have any questions or problems, please contact our <6>free support</6>.</4>" ⚠️
+    const component22 = (
+      <Trans t={t} i18nKey="example.feedbackDescription">
+        <br />
+        Your feedback will be incorporated into the further
+        development of this application and will be
+        discussed, evaluated, and prioritized by us in the
+        next step. Due to the large amount of feedback we
+        receive, we are unfortunately unable to respond to
+        each piece of feedback individually.
+        <br />
+        <br />
+        <b>
+          If you have any questions or problems, please
+          contact our{" "}
+          <Text
+            fontSize="inherit"
+            type="button"
+            as="button"
+            onClick={() => {
+              // Example handler
+            }}
+          >
+            free support
+          </Text>
+          .
+        </b>
+      </Trans>
+    );
+
+    // Render all components to trigger the missing key handler
+    const components = [
+      component1,
+      component2,
+      component3,
+      component4,
+      component5,
+      component6,
+      component7,
+      component8,
+      component9,
+      component10,
+      component11,
+      component12,
+      component13,
+      component14,
+      component15,
+      component16,
+      component17,
+      component18,
+      component19,
+      component20,
+      component21,
+      component22,
+    ];
+
+    console.log(
+      "\n=== Rendering components to trigger missing keys ===\n"
+    );
+    components.forEach((component, index) => {
+      try {
+        // Wrap in I18nextProvider to provide i18n context
+        const wrapped = React.createElement(
+          I18nextProvider,
+          { i18n: i18next },
+          component
+        );
+        ReactDOMServer.renderToString(wrapped);
+      } catch (err) {
+        console.error(
+          `Error rendering component ${index + 1}:`,
+          err.message
+        );
+      }
+    });
+
+    // Show final summary
+    console.log("\n=== Final Missing Keys Summary ===");
+    console.log(`Total missing keys: ${missingKeys.size}`);
+    missingKeys.forEach((value, key) => {
+      console.log(`${key}: ${value}`);
+    });
   }
 );
