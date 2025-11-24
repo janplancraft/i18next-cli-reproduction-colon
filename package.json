@@ -2,9 +2,11 @@
   "name": "i18next-cli-reproduction-colon",
   "version": "1.0.0",
   "main": "index.js",
+  "packageManager": "pnpm@10.9.0",
   "scripts": {
     "extract": "i18next-cli extract --sync-primary",
-    "run": "node --require esbuild-register src/app.jsx"
+    "run": "node --require esbuild-register src/app.jsx",
+    "check-expected": "node --require esbuild-register src/app.jsx 2>&1 | grep -A 1000 'Missing Keys Map'"
   },
   "keywords": [],
   "author": "",

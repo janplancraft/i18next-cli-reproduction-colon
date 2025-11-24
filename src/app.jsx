@@ -460,6 +460,22 @@ i18next.use(initReactI18next).init(
       </Trans>
     );
 
+    // Expected: "<0>1. </0><1>Reload the page</1>"
+    // Actual: "<0>1. </0><2>Reload the page</2>" ❌
+    const component30 = (
+      <Trans t={t} i18nKey="example.reloadStep">
+        <Text
+          fontSize="20px"
+          style={{ marginRight: "6px" }}
+        >
+          1.{" "}
+        </Text>
+        <Text fontSize="20px" onClick={() => {}}>
+          Reload the page
+        </Text>
+      </Trans>
+    );
+
     // Render all components to trigger the missing key handler
     const components = [
       component1,
@@ -491,6 +507,7 @@ i18next.use(initReactI18next).init(
       component27,
       component28,
       component29,
+      component30,
     ];
 
     console.log(

@@ -23,6 +23,7 @@
     "permissionInfo": "You can easily change the role, and thus the access rights, of your users. To do this, navigate to the <2>team settings</2>. There you can define a role for each user in their individual settings.",
     "permissionInfoNoSpace": "You can easily change the role, and thus the access rights, of your users. To do this, navigate to the<1>team settings</1>. There you can define a role for each user in their individual settings.",
     "phoneConfirmation": "Your user can now log into the <1>app</1> using the mobile number <3>{{phoneNumber}}</3>.",
+    "reloadStep": "<0>1. </0><2>Reload the page</2>",
     "selfClosingLongProps": "text<1></1>more",
     "singleLine": "prefix<1>suffix</1>",
     "spaceBeforePunctuation": "In our <2>help article</2>, you will find the most important tips.",
