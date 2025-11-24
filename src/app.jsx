@@ -461,7 +461,7 @@ i18next.use(initReactI18next).init(
     );
 
     // Expected: "<0>1. </0><1>Reload the page</1>"
-    // Actual: "<0>1. </0><2>Reload the page</2>" ❌
+    // Actual: "<0>1. </0><1>Reload the page</1>" ✅
     const component30 = (
       <Trans t={t} i18nKey="example.reloadStep">
         <Text
