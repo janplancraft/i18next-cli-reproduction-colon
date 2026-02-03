@@ -14,6 +14,8 @@
     "itemCountTExample_many": "",
     "itemCountTExample_other": "",
     "itemCountTransExample_one": "",
+    "itemCountTransExample_few": "",
+    "itemCountTransExample_many": "",
     "itemCountTransExample_other": "",
     "longPropsInline": "",
     "longPropsNested": "",
