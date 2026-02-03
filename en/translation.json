@@ -6,7 +6,7 @@
     "componentStart": "<0>start</0>text",
     "componentWithText": "text<1>link text</1>more text",
     "durationValue": "<0></0>days",
-    "feedbackDescription": "<br />Your feedback will be incorporated into the further development of this application and will be discussed, evaluated, and prioritized by us in the next step. Due to the large amount of feedback we receive, we are unfortunately unable to respond to each piece of feedback individually.<br /><br /><4>If you have any questions or problems, please contact our <2>free support</2>.</4>",
+    "feedbackDescription": "<br/>Your feedback will be incorporated into the further development of this application and will be discussed, evaluated, and prioritized by us in the next step. Due to the large amount of feedback we receive, we are unfortunately unable to respond to each piece of feedback individually.<br/><br/><4>If you have any questions or problems, please contact our <2>free support</2>.</4>",
     "inlineMiddle": "wo<1>r</1>d",
     "inlineMiddleMultiline": "wo<1>r</1>d",
     "itemCountTExample_one": "{{count}} item",
