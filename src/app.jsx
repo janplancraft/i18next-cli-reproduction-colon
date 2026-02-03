@@ -476,6 +476,33 @@ i18next.use(initReactI18next).init(
       </Trans>
     );
 
+    // === Extractor only emits primary locale's plural forms; breaks locales that need _few / _many ===
+    // BUG: When extracting pluralized keys (t(..., { count }) or <Trans> with count), the extractor
+    // only generates plural suffixes for the primary locale (e.g. en → key_one, key_other).
+    // With --sync-primary, other locales are synced to that key set, so key_few, key_many (e.g. for
+    // Polish) are REMOVED from pl/translation.json. Expected: emit all CLDR forms (_zero, _one,
+    // _two, _few, _many, _other) so every locale can keep the forms it needs and sync doesn't strip them.
+    // See: call-expression-handler.d.ts "Generates plural form keys based on the primary language's plural rules"
+    const itemCount = 3;
+    // With t(), pluralization works just fine at runtime (correct form for count/locale); same
+    // extractor bug applies (only _one/_other emitted, sync strips _few/_many in pl).
+    const itemsCountText = t("example.itemCountTExample", {
+      count: itemCount,
+      defaultValue_one: "{{count}} item",
+      defaultValue_other: "{{count}} items",
+    });
+    const component31a = <span>{itemsCountText}</span>;
+    const component31 = (
+      <Trans
+        t={t}
+        i18nKey="example.itemCountTransExample"
+        count={itemCount}
+        values={{ count: itemCount }}
+      >
+        You have <b>{{ count }}</b> item
+      </Trans>
+    );
+
     // Render all components to trigger the missing key handler
     const components = [
       component1,
@@ -508,6 +535,8 @@ i18next.use(initReactI18next).init(
       component28,
       component29,
       component30,
+      component31a,
+      component31,
     ];
 
     console.log(
